@@ -1,0 +1,55 @@
+@page "/product/{Id}"
+
+@inject IProductService Products
+
+<div data-boundary-page="decide">
+  <Extension Name="header" />
+  <main class="d_ProductPage">
+    <div class="d_ProductPage__details">
+      <img
+        class="d_ProductPage__productImage"
+        src=@Utils.Src(CurrentVariant.Image, 400)
+        src-set=@Utils.SrcSet(CurrentVariant.Image, [400, 800])
+        sizes="400px"
+        width="400"
+        height="400"
+        alt=@($"{CurrentProduct.Name} - {CurrentVariant.Name}")
+        />
+        <div class="d_ProductPage__productInformation">
+        <h2 class="d_ProductPage__title">@CurrentProduct.Name</h2>
+        <ul class="d_ProductPage__highlights">
+        @foreach (var highlight in CurrentProduct.Highlights) {
+            <li>@highlight</li>
+        }
+        </ul>
+        <ul class="d_ProductPage__variants">
+        @foreach (var v in CurrentProduct.Variants) {
+            <VariantOption Sku=@v.Sku Name=@v.Name IsSelected=@(v == CurrentVariant) Color=@v.Color />
+        }
+        </ul>
+        <Extension Name="add-to-cart" Params="new { Sku = CurrentVariant.Sku }" />
+        </div>
+    </div>
+    <Extension Name="recommendations" Params="new { Skus = new List<string>([CurrentVariant.Sku]) }" />
+    </main>
+    <Extension Name="footer" />
+</div>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    [Parameter]
+    [PiralQueryParameter("sku")]
+    public string CurrentSku { get; set; }
+
+    public Product CurrentProduct { get; set; }
+
+    public Variant CurrentVariant { get; set; }
+
+    protected override void OnInitialized()
+    {
+        CurrentProduct = Products.GetProduct(Id);
+        CurrentVariant = CurrentProduct.Variants.FirstOrDefault(m => m.Sku == CurrentSku) ?? CurrentProduct.Variants.First();
+    }
+}

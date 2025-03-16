@@ -1,0 +1,102 @@
+@page "/checkout/checkout"
+
+@inject IDataRepository Cart
+@inject NavigationManager Navigation
+@inject IPiletService Pilet
+
+@implements IDisposable
+
+<div data-boundary-page="checkout">
+  <CompactHeader />
+  <main class="c_Checkout">
+    <h2>Checkout</h2>
+    <form action="/checkout/place-order" method="post" class="c_Checkout__form" onsubmit=@Submit>
+      <h3>Personal Data</h3>
+      <fieldset class="c_Checkout__name">
+        <div>
+          <label class="c_Checkout__label" for="c_firstname">
+            First name
+          </label>
+          <input
+            class="c_Checkout__input"
+            type="text"
+            id="c_firstname"
+            name="firstName"
+            required
+            @bind-value="FirstName"
+          />
+        </div>
+        <div>
+          <label class="c_Checkout__label" for="c_lastname">
+            Last name
+          </label>
+          <input
+            class="c_Checkout__input"
+            type="text"
+            id="c_lastname"
+            name="lastName"
+            required
+            @bind-value="LastName"
+          />
+        </div>
+      </fieldset>
+
+      <h3>Store Pickup</h3>
+      <fieldset>
+        <div class="c_Checkout__store">
+          <Extension Name="store-picker" />
+        </div>
+        <label class="c_Checkout__label" for="c_storeId">
+          Store ID
+        </label>
+        <input
+          class="c_Checkout__input"
+          type="text"
+          id="c_storeId"
+          name="storeId"
+          @bind-value="SelectedShop"
+          read-only
+          required
+        />
+      </fieldset>
+
+      <div class="c_Checkout__buttons">
+        <Button Type="submit" Variant="primary" IsDisabled=@IsInvalid>
+          place order
+        </Button>
+        <Button Href="/checkout/cart" Variant="secondary">
+          back to cart
+        </Button>
+      </div>
+    </form>
+  </main>
+  <Extension Name="footer" />
+</div>
+
+@code {
+    public bool IsInvalid => string.IsNullOrEmpty(SelectedShop) || string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName);
+
+    public string SelectedShop { get; set; }
+
+    public string LastName { get; set; }
+
+    public string FirstName { get; set; }
+
+    public void Submit()
+    {
+        Cart.Clear();
+        Navigation.NavigateTo("/checkout/thanks");
+    }
+
+    public void Dispose()
+    {
+        Pilet.RemoveEventListener<string>("select-shop", ChangeShop);
+    }
+
+    protected override void OnInitialized()
+    {
+        Pilet.AddEventListener<string>("select-shop", ChangeShop);
+    }
+
+    private void ChangeShop(string value) => SelectedShop = value;
+}

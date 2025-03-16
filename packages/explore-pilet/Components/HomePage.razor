@@ -1,0 +1,28 @@
+@page "/"
+
+@inject IDataService Data
+
+<div data-boundary-page="explore">
+  <Extension Name="header" />
+  <main class="e_HomePage">
+    @foreach (var teaser in Data.Teasers) {
+      <a class="e_HomePage__categoryLink" to=@teaser.Url>
+        <img
+          src=@Utils.Src(teaser.Image, 500)
+          src-set=@Utils.SrcSet(teaser.Image, [500, 1000])
+          sizes="100vw, (min-width: 500px) 50vw"
+          alt=""
+        />
+        @teaser.Title
+      </a>
+    }
+    <div class="e_HomePage__recommendations">
+      <Extension Name="recommendations" Params="new { Skus = skus }" />
+    </div>
+  </main>
+  <Extension Name="footer" />
+</div>
+
+@code {
+  private List<string> skus = new List<string>(["CL-01-GY", "AU-07-MT"]);
+}

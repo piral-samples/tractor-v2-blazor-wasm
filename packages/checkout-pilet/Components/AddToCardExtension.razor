@@ -1,0 +1,42 @@
+@attribute [PiralExtension("add-to-cart")]
+
+@inject IDataRepository Cart
+@inject NavigationManager Navigation
+
+<form action="/checkout/cart/add" method="POST" class="c_AddToCart" data-boundary="checkout">
+    <input type="hidden" name="sku" value="@Sku" />
+    <div class="c_AddToCart__information">
+        <p>@Variant.Price Ø</p>
+        @if (Variant.Inventory > 0)
+        {
+            <p class="c_AddToCart__stock c_AddToCart__stock--ok">@Variant.Inventory in stock, free shipping</p>
+        }
+        else
+        {
+            <p class="c_AddToCart__stock c_AddToCart__stock--empty">out of stock</p>
+        }
+    </div>
+    <button type="submit" disabled="@OutOfStock" class="c_AddToCart__button">
+        add to basket
+    </button>
+    <div class="c_AddToCart__confirmed c_AddToCart__confirmed--hidden">
+        <p>Tractor was added.</p>
+        <a href="/checkout/cart" class="c_AddToCart__link">View in basket.</a>
+    </div>
+</form>
+
+@code {
+    [Parameter]
+    [PiralParameter("params.sku")]
+    public string Sku { get; set; } = "";
+
+    public Variant Variant => Cart.GetVariant(Sku);
+
+    private bool OutOfStock => Variant.Inventory == 0;
+    
+    private void Submit()
+    {
+        Cart.AddToCart(Sku);
+        Navigation.NavigateTo("/checkout/cart");
+    }
+}

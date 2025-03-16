@@ -1,0 +1,56 @@
+@inject IDataRepository Cart
+
+<li class="c_LineItem">
+  <a href="@Url" class="c_LineItem__image">
+    <img src="@Utils.Src(Image, 200)") src-set="@Utils.SrcSet(Image, [200, 400])" sizes="200px" alt="@Name" width="200" height="200" />
+  </a>
+  <div class="c_LineItem__details">
+    <a href="@Url" class="c_LineItem__name">
+      <strong>@Name</strong>
+      <br />
+      @Sku
+    </a>
+    <div class="c_LineItem__quantity">
+      <span>@Quantity</span>
+
+      <form action="/checkout/cart/remove" method="post" @onsubmit="Submit">
+      <input type="hidden" name="sku" value="@Sku" />
+      <Button Variant="secondary" IsRounded Type="submit" Value="remove" Size="small" Title="@ButtonTitle">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" height="20" width="20" viewBox="0 0 48 48">
+          <path fill="#000" d="m40 5.172-16 16-16-16L5.171 8l16.001 16L5.171 40 8 42.828l16-16 16 16L42.828 40l-16-16 16-16L40 5.172Z" />
+        </svg>
+       </Button>
+      </form>
+    </div>
+    <div class="c_LineItem__price">@Total Ø</div>
+  </div>
+</li>
+
+@code {    
+    [Parameter]
+    public int Quantity { get; set; }
+    
+    [Parameter]
+    public string Sku { get; set; }
+    
+    [Parameter]
+    public string Id { get; set; }
+    
+    [Parameter]
+    public string Name { get; set; }
+    
+    [Parameter]
+    public decimal Total { get; set; }
+    
+    [Parameter]
+    public string Image { get; set; }
+
+    public string ButtonTitle => $"Remove {Name} from cart";
+
+    public string Url => $"/product/{Id}?sku={Sku}";
+
+    public void Submit()
+    {
+        Cart.RemoveFromCart(Sku);
+    }
+}

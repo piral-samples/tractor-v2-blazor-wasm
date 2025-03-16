@@ -1,0 +1,22 @@
+<li class="d_VariantOption" style=@($"--variant-color: {Color}")>
+  <i class="d_VariantOption__color"></i>
+  @if (IsSelected) {
+    <strong>@Name</strong>
+  } else {
+    <a href=@($"?sku={Sku}")>@Name</a>
+  }
+</li>
+
+@code {
+  [Parameter]
+  public string Sku { get; set; }
+  
+  [Parameter]
+  public string Name { get; set; }
+  
+  [Parameter]
+  public bool IsSelected { get; set; }
+  
+  [Parameter]
+  public string Color { get; set; }
+}

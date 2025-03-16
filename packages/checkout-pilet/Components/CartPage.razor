@@ -1,0 +1,32 @@
+@page "/checkout/cart"
+
+@inject IDataRepository Cart
+
+<div data-boundary-page="checkout">
+  <Extension Name="header" />
+  <main class="c_CartPage">
+    <h2>Basket</h2>
+    <ul class="c_CartPage__lineItems">
+      @foreach (var li in Cart.Entries)
+      {
+        <LineItem Id=@(li.Variant.Id) Image=@(li.Variant.Image) Name=@(li.Variant.Name) Quantity=@li.Quantity Sku=@(li.Variant.Sku) Total=@li.Total />
+      }
+    </ul>
+    <hr />
+    <p class="c_CartPage__total">Total: @Cart.Total Ø</p>
+    <div class="c_CartPage__buttons">
+      <Button Href="/checkout/checkout" Variant="primary">
+        Checkout
+      </Button>
+      <Button Href="/" Variant="secondary">
+        Continue Shopping
+      </Button>
+    </div>
+    <Extension Name="recommendations" Params="new { Skus = Skus }" />
+  </main>
+  <Extension Name="footer" />
+</div>
+
+@code {
+    public IEnumerable<string> Skus => Cart.Entries.Select(m => m.Variant.Sku);
+}

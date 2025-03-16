@@ -1,0 +1,20 @@
+@page "/stores"
+
+@inject IDataService Data
+
+<div data-boundary-page="explore">
+  <Extension Name="header" />
+  <main class="e_StoresPage">
+    <h2>Our Stores</h2>
+    <p>
+      Want to see our products in person? Visit one of our stores to see our products up close and talk to our
+      experts. We have stores in the following locations:
+    </p>
+    <ul class="e_StoresPage_list">
+      @foreach (var store in Data.Stores) {
+        <Store Image=@store.Image Name=@store.Name City=@store.City Street=@store.Street />
+      }
+    </ul>
+  </main>
+  <Extension Name="footer" />
+</div>

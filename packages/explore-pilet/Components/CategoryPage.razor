@@ -1,0 +1,38 @@
+@page "/products"
+@page "/products/{Category}"
+
+@using System.Linq
+
+@inject IDataService Data
+
+<div data-boundary-page="explore">
+  <Extension Name="header" />
+  <main class="e_CategoryPage">
+    <h2>@Title</h2>
+    <div class="e_CategoryPage__subline">
+      <p>@(Products.Count()) products</p>
+      <Filter Filters=@Filters />
+    </div>
+    <ul class="e_CategoryPage_list">
+    @foreach (var product in Products.OrderByDescending(m => m.StartPrice)) {
+      <Product Name=@product.Name StartPrice=@product.StartPrice Url=@product.Url Image=@product.Image />
+    }
+    </ul>
+  </main>
+  <Extension Name="footer" />
+</div>
+
+@code {
+    [Parameter]
+    public string Category { get; set; }
+
+    public CategoryDto SelectedCategory => Data.GetCategory(Category);
+
+    public string Title => SelectedCategory?.Name ?? "All Machines";
+
+    public IEnumerable<FilterDto> Filters => Data.Categories
+      .Select(c => new FilterDto { Url = $"/products/{c.Key}", Name = c.Name, IsActive = c.Key == Category })
+      .Prepend(new FilterDto { Url = "", Name = "All", IsActive = string.IsNullOrEmpty(Category) });
+
+    public IEnumerable<ProductDto> Products => SelectedCategory?.Products ?? Data.GetAllProducts();
+}

@@ -1,0 +1,27 @@
+@attribute [PiralExtension("recommendations")]
+
+@inject IDataService Data
+
+@if (Recos.Any()) {
+  <div class="e_Recommendations" data-boundary="explore">
+    <h2>Recommendations</h2>
+    <ul class="e_Recommendations_list">
+      @foreach (var reco in Recos) {
+        <Recommendation Image=@reco.Image Url=@reco.Url Name=@reco.Name />
+      }
+    </ul>
+  </div>
+}
+
+@code {
+    [Parameter]
+    [PiralParameter("params.Skus")]
+    public IEnumerable<string> Skus { get; set; }
+
+    public IEnumerable<RecommendationDto> Recos { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Recos = Data.GetRecommendations(Skus);
+    }
+}

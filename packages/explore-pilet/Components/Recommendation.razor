@@ -1,0 +1,25 @@
+<li class="e_Recommendation">
+  <a class="e_Recommendation_link" href=@Url>
+    <img
+      class="e_Recommendation_image"
+      src=@Utils.Src(Image, 200)
+      src-set=@Utils.SrcSet(Image, [200, 400])
+      alt=""
+      sizes="200px"
+      width="200"
+      height="200"
+    />
+    <span class="e_Recommendation_name">@Name</span>
+  </a>
+</li>
+
+@code {
+    [Parameter]
+    public string Image { get; set; }
+    
+    [Parameter]
+    public string Url { get; set; }
+    
+    [Parameter]
+    public string Name { get; set; }
+}

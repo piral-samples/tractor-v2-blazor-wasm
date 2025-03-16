@@ -1,0 +1,19 @@
+<div class="e_Filter">
+  Filter:
+  <ul>
+    @foreach (var f in Filters) {
+      @if (f.IsActive) {
+        <li class="e_Filter__filter--active">@f.Name</li>
+      } else {
+        <li>
+          <a href=@f.Url>@f.Name</a>
+        </li>
+      }
+    }
+  </ul>
+</div>
+
+@code {
+    [Parameter]
+    public IEnumerable<FilterDto> Filters { get; set; }
+}

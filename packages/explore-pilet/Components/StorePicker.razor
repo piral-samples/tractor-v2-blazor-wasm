@@ -1,0 +1,63 @@
+@using Microsoft.JSInterop
+
+@attribute [PiralExtension("store-picker")]
+
+@inject IJSRuntime Js
+@inject IDataService Data
+@inject IPiletService Pilet
+
+<div class="e_StorePicker">
+      <div class="e_StorePicker_control" data-boundary="explore">
+        <div class="e_StorePicker_selected">
+            @((MarkupString)CurrentStore)
+        </div>
+        <Button ClassName="e_StorePicker_choose" Type="button" OnClick="OpenDialog">
+          choose a store
+        </Button>
+      </div>
+      <dialog class="e_StorePicker_dialog" data-boundary="explore">
+        <div class="e_StorePicker_wrapper">
+          <h2>Stores</h2>
+          <ul class="e_StorePicker_list">
+            @foreach (var s in Data.Stores) {
+              <li class="e_StorePicker_entry">
+                <div class="e_StorePicker_content">
+                  <img
+                    class="e_StorePicker_image"
+                    src=@Utils.Src(s.Image, 200)
+                    src-set=@Utils.SrcSet(s.Image, [200, 400])
+                    width="200"
+                    height="200"
+                  />
+                  <p class="e_StorePicker_address">
+                    @s.Name
+                    <br />
+                    @s.Street
+                    <br />
+                    @s.City
+                  </p>
+                </div>
+                <Button ClassName="e_StorePicker_select" Type="button" DataId=@s.Id OnClick="@(_ => SelectShop(s.Id))">
+                  select
+                </Button>
+              </li>
+            }
+          </ul>
+        </div>
+      </dialog>
+    </div>
+
+@code {
+    public string CurrentStore { get; set; } = "";
+
+    public void OpenDialog()
+    {
+        Js.InvokeVoidAsync("openStorePicker");
+    }
+
+    public void SelectShop(string shopId)
+    {
+        CurrentStore = "";//TODO
+        Pilet.DispatchEvent("select-shop", shopId);
+    }
+}
