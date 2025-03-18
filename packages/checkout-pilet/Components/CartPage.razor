@@ -28,5 +28,5 @@
 </div>
 
 @code {
-    public IEnumerable<string> Skus => Cart.Entries.Select(m => m.Variant.Sku);
+    private IEnumerable<string> Skus => Cart.Entries.Select(m => m.Variant.Sku);
 }

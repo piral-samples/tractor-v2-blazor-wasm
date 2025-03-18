@@ -17,12 +17,12 @@
       </a>
     }
     <div class="e_HomePage__recommendations">
-      <Extension Name="recommendations" Params="new { Skus = skus }" />
+      <Extension Name="recommendations" Params="new { Skus = Skus }" />
     </div>
   </main>
   <Extension Name="footer" />
 </div>
 
 @code {
-  private List<string> skus = new List<string>(["CL-01-GY", "AU-07-MT"]);
+  private IEnumerable<string> Skus => new List<string>(["CL-01-GY", "AU-07-MT"]);
 }

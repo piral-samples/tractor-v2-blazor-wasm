@@ -22,6 +22,6 @@
 
     protected override void OnInitialized()
     {
-        Recos = Data.GetRecommendations(Skus);
+        Recos = Data.GetRecommendations(Skus ?? Enumerable.Empty<string>());
     }
 }

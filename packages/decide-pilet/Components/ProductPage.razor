@@ -30,12 +30,14 @@
         <Extension Name="add-to-cart" Params="new { Sku = CurrentVariant.Sku }" />
         </div>
     </div>
-    <Extension Name="recommendations" Params="new { Skus = new List<string>([CurrentVariant.Sku]) }" />
+    <Extension Name="recommendations" Params="new { Skus = Skus }" />
     </main>
     <Extension Name="footer" />
 </div>
 
 @code {
+    private IEnumerable<string> Skus => new List<string>([CurrentVariant.Sku]);
+
     [Parameter]
     public string Id { get; set; }
 
@@ -49,7 +51,7 @@
 
     protected override void OnInitialized()
     {
-        CurrentProduct = Products.GetProduct(Id);
+        CurrentProduct = Products.GetProduct(Id) ?? Products.GetProduct("AU-01");
         CurrentVariant = CurrentProduct.Variants.FirstOrDefault(m => m.Sku == CurrentSku) ?? CurrentProduct.Variants.First();
     }
 }

@@ -16,7 +16,7 @@
     ]
   },
   "dependencies": {
-    "blazor": "8.0.18-pre.20250315.1",
+    "blazor": "8.0.18-pre.20250318.1",
     "piral-base": "^1",
     "piral-blazor": "^1",
     "piral-core": "^1",

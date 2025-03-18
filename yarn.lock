@@ -1964,10 +1964,10 @@ bl@^4.0.3, bl@^4.1.0:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
-blazor@8.0.18-pre.20250315.1:
-  version "8.0.18-pre.20250315.1"
-  resolved "https://registry.yarnpkg.com/blazor/-/blazor-8.0.18-pre.20250315.1.tgz#d7a7392dc66fe2f2edeaefd030e926591d9f6ccd"
-  integrity sha512-8JWJ2bPBaucZUvt8sAo9wDIevF4doS1iJhOAiOteHp+UVwuugcsxntu+vEates5g49SDDIUXzKAzhylnGrgFVA==
+blazor@8.0.18-pre.20250318.1:
+  version "8.0.18-pre.20250318.1"
+  resolved "https://registry.yarnpkg.com/blazor/-/blazor-8.0.18-pre.20250318.1.tgz#16f4f1851d71292d2779e42409d52dcf68b244c9"
+  integrity sha512-Ue7MZT9n8LNcMEpwPnkUTShUWgJHZv3QQVCRnyrla6z0KQ8llCiVZKEyDHfoHdL7xxzR+0/HExivQOG1+aaEkA==
 
 boolbase@^1.0.0:
   version "1.0.0"
