@@ -70,20 +70,15 @@ yarn install
 Now you can run all micro frontends (so-called pilets):
 
 ```sh
+./prepare.sh
 yarn start
 ```
 
-This is an alias for `yarn watch:all`.
+The `start` command is an alias for `yarn watch:all`. The `prepare.sh` script only needs to be executed once to generate the JavaScript parts.
 
 Open http://localhost:1234 in your browser to see the integrated application.
 
-Alternatively, run only a single pilet (e.g., the `checkout-pilet`):
-
-```sh
-name=checkout yarn watch:mf
-```
-
-Or if you wan to, you can also run the app shell in isolation:
+If you want to, you can also run the app shell in isolation:
 
 ```sh
 yarn watch:app

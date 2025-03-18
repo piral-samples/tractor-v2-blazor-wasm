@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "deploy": "pilet publish --fresh --url https://tractor-v2-blazor-wasm-demo.my.piral.cloud/api/v1/pilet --interactive"
+  },
   "dependencies": {
     "canvas-confetti": "1.9.3"
   },
