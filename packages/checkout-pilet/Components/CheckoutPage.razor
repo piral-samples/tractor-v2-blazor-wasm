@@ -98,5 +98,9 @@
         Pilet.AddEventListener<string>("select-shop", ChangeShop);
     }
 
-    private void ChangeShop(string value) => SelectedShop = value;
+    private void ChangeShop(string value)
+    {
+      SelectedShop = value;
+      this.StateHasChanged();
+    }
 }

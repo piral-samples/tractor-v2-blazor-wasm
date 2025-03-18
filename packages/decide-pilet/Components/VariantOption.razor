@@ -1,15 +1,22 @@
+@inject NavigationManager Navigation
+
 <li class="d_VariantOption" style=@($"--variant-color: {Color}")>
   <i class="d_VariantOption__color"></i>
   @if (IsSelected) {
     <strong>@Name</strong>
   } else {
-    <a href=@($"?sku={Sku}")>@Name</a>
+    <a href="@Href">@Name</a>
   }
 </li>
 
 @code {
   [Parameter]
   public string Sku { get; set; }
+  
+  [Parameter]
+  public string Id { get; set; }
+
+  public string Href => $"/product/{Id}?sku={Sku}";
   
   [Parameter]
   public string Name { get; set; }

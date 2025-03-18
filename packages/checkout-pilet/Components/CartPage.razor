@@ -1,6 +1,7 @@
 @page "/checkout/cart"
 
 @inject IDataRepository Cart
+@implements IDisposable
 
 <div data-boundary-page="checkout">
   <Extension Name="header" />
@@ -29,4 +30,19 @@
 
 @code {
     private IEnumerable<string> Skus => Cart.Entries.Select(m => m.Variant.Sku);
+
+    protected override void OnInitialized()
+    {
+        Cart.CartChanged += Update;
+    }
+
+    public void Dispose()
+    {
+        Cart.CartChanged -= Update;
+    }
+
+    private void Update(object sender, EventArgs e)
+    {
+        this.StateHasChanged();
+    }
 }

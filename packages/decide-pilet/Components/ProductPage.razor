@@ -24,7 +24,7 @@
         </ul>
         <ul class="d_ProductPage__variants">
         @foreach (var v in CurrentProduct.Variants) {
-            <VariantOption Sku=@v.Sku Name=@v.Name IsSelected=@(v == CurrentVariant) Color=@v.Color />
+            <VariantOption Id=@Id Sku=@v.Sku Name=@v.Name IsSelected=@(v == CurrentVariant) Color=@v.Color />
         }
         </ul>
         <Extension Name="add-to-cart" Params="new { Sku = CurrentVariant.Sku }" />
@@ -50,7 +50,7 @@
 
     public Variant CurrentVariant { get; set; }
 
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
         CurrentProduct = Products.GetProduct(Id) ?? Products.GetProduct("AU-01");
         CurrentVariant = CurrentProduct.Variants.FirstOrDefault(m => m.Sku == CurrentSku) ?? CurrentProduct.Variants.First();

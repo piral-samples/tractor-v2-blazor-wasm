@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -5,6 +6,8 @@ namespace Checkout;
 
 public class DataRepository : IDataRepository
 {
+    public event EventHandler<EventArgs> CartChanged;
+
     private static readonly List<Variant> _variants =
     [
         new Variant { Id = "AU-01", Name = "TerraFirma AutoCultivator T-300 Silver", Sku = "AU-01-SI", Price = 1000, Image = "https://blueprint.the-tractor.store/cdn/img/product/[size]/AU-01-SI.webp", Inventory = 8 },
@@ -67,6 +70,7 @@ public class DataRepository : IDataRepository
     public void Clear()
     {
         _entries.Clear();
+        TriggerCartChanged();
     }
 
     public void AddToCart(string sku)
@@ -79,11 +83,13 @@ public class DataRepository : IDataRepository
             {
                 entry.Total += variant.Price;
                 entry.Quantity++;
+                TriggerCartChanged();
                 return;
             }
         }
 
         _entries.Add(new CartEntry { Variant = variant, Total = variant.Price, Quantity = 1 });
+        TriggerCartChanged();
     }
 
     public void RemoveFromCart(string sku)
@@ -104,10 +110,16 @@ public class DataRepository : IDataRepository
                     entry.Quantity--;
                 }
 
+                TriggerCartChanged();
                 return;
             }
         }
     }
 
     public Variant GetVariant(string sku) => _variants.Find(m => m.Sku == sku);
+
+    private void TriggerCartChanged()
+    {
+        CartChanged?.Invoke(this, EventArgs.Empty);
+    }
 }
