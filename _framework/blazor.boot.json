@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Piral.Blazor.Core",
   "resources": {
-    "hash": "sha256-Oum3T+ro8PPJJ7daG+t8knMmJDjAt6BSMR6/EP/TQf4=",
+    "hash": "sha256-jBz2dXR33F7ABoI9/6Mc9ZSP/d+5ujKh2p5EAFNla1A=",
     "jsModuleNative": {
       "dotnet.native.8.0.14.j7qolwkdl3.js": "sha256-DTUQS6Jc6BNnS7sYYezFfaUKVmQq0/lanhQuJfygH/k="
     },
@@ -49,8 +49,8 @@
       "Microsoft.Win32.Registry.wasm": "sha256-2tl9rgsm3RTzyBIHhSNSN/4AyuYyLb4YxIv3e01Mdas=",
       "mscorlib.wasm": "sha256-8L4O6tiH48gEZfzf0Y84J01S+3eEG59Bo5bfpH2H+9Y=",
       "netstandard.wasm": "sha256-sEvS/ZjfGhf1dLglmk72ysM50loOygjujJ/J5OhFLEw=",
-      "Piral.Blazor.Core.wasm": "sha256-8PXskaVbwqma35bhyRHf6DJSZ6Ga6Cb2WKLQHfAHKI0=",
-      "Piral.Blazor.Utils.wasm": "sha256-I0O7hfzLC2/SsBxAVq8FxOXXjoXNzENwHYWmK8eELvE=",
+      "Piral.Blazor.Core.wasm": "sha256-iDPIbsvb5r+we4aHgUDfoBP0lBi6uDXEQx9JRP1MBk0=",
+      "Piral.Blazor.Utils.wasm": "sha256-rUOTtJDcYQnIp/mWVFyp4tQlrXiD9AipRziHTxdn3vM=",
       "System.AppContext.wasm": "sha256-SWSZv9gdy+Zr7iRPixjXaPqpgeQpo0GQxwDo0xPXS2c=",
       "System.Buffers.wasm": "sha256-PGEC9uIHyZ9DOXRDob9oJyictneF3irvY9LZ/mEXAhk=",
       "System.Collections.Concurrent.wasm": "sha256-XFfjwXfl3CPlyIWq/AjNWQZoG5JKmp4J3JUYCnrKBtE=",
