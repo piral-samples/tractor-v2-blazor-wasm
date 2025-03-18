@@ -1,4 +1,4 @@
-@page "/product/{Id}"
+@page "/product/{id}"
 
 @inject IProductService Products
 
@@ -39,6 +39,7 @@
     private IEnumerable<string> Skus => new List<string>([CurrentVariant.Sku]);
 
     [Parameter]
+    [PiralRouteParameter("id")]
     public string Id { get; set; }
 
     [Parameter]

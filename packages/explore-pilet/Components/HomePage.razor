@@ -6,7 +6,7 @@
   <Extension Name="header" />
   <main class="e_HomePage">
     @foreach (var teaser in Data.Teasers) {
-      <a class="e_HomePage__categoryLink" to=@teaser.Url>
+      <a class="e_HomePage__categoryLink" href=@teaser.Url>
         <img
           src=@Utils.Src(teaser.Image, 500)
           src-set=@Utils.SrcSet(teaser.Image, [500, 1000])

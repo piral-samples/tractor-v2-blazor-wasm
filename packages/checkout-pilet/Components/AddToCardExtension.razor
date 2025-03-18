@@ -3,7 +3,7 @@
 @inject IDataRepository Cart
 @inject NavigationManager Navigation
 
-<form action="/checkout/cart/add" method="POST" class="c_AddToCart" data-boundary="checkout">
+<form action="/checkout/cart/add" method="POST" class="c_AddToCart" data-boundary="checkout" @onsubmit="Submit">
     <input type="hidden" name="sku" value="@Sku" />
     <div class="c_AddToCart__information">
         <p>@Variant.Price Ø</p>

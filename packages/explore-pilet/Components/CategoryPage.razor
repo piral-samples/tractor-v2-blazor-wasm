@@ -1,5 +1,5 @@
 @page "/products"
-@page "/products/{Category}"
+@page "/products/{category}"
 
 @using System.Linq
 
@@ -24,6 +24,7 @@
 
 @code {
     [Parameter]
+    [PiralRouteParameter("category")]
     public string Category { get; set; }
 
     public CategoryDto SelectedCategory => Data.GetCategory(Category);
@@ -31,8 +32,8 @@
     public string Title => SelectedCategory?.Name ?? "All Machines";
 
     public IEnumerable<FilterDto> Filters => Data.Categories
-      .Select(c => new FilterDto { Url = $"/products/{c.Key}", Name = c.Name, IsActive = c.Key == Category })
-      .Prepend(new FilterDto { Url = "", Name = "All", IsActive = string.IsNullOrEmpty(Category) });
+          .Select(c => new FilterDto { Url = $"/products/{c.Key}", Name = c.Name, IsActive = c.Key == Category })
+          .Prepend(new FilterDto { Url = "/products", Name = "All", IsActive = string.IsNullOrEmpty(Category) });
 
     public IEnumerable<ProductDto> Products => SelectedCategory?.Products ?? Data.GetAllProducts();
 }
