@@ -20,7 +20,7 @@ jobs:
           yarn install
       - name: Install GitHub Pages
         run: |
-          npm install -g gh-pages@3.0.0
+          npm install -g gh-pages@latest
       - name: Build Website
         run: |
           yarn build
